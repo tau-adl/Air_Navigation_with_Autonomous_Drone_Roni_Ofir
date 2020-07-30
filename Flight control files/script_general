@@ -1,0 +1,70 @@
+>> catkin_create_pkg pkg_namp rospy roscpp
+>> nano CMakeLists.txt
+
+inside catcin_ws there are 3 pkg: build, devel, src.
+
+the order is: catkin_ws->src->all our small pkgs .....
+inside every small pkg: src, launch, msg, CMakeLists.txt, package.xml ...
+
+>> rosrun rqt_graph [TAB]
+
+
+In order to make the files executable:
+>> chmod +x test_publisher.py
+>> chmod +x test_subscriber.py
+
+AND ONLY THEN, WHEN WE TYPE "ls" WE WILL SEE THE FILES IN THE RIGHT COLOR (MAYBE GREEN)!
+
+
+ROS AND OPENCV:
+? "vision_opencv" - interface between opencv and ROS
+in this interface there is the "cv_bridge" - which is very important because it is a bridge between ROS messages and opencv.
+
+>> cd catkin_ws/src
+>> catkin_create_pkg opencv_tutorial std_msgs sensor_msgs roscpp rospy cv_bridge image_transport
+
+in CMakeLists.txt
+*** after the ***
+find_package (catkin REQUIRES COMPONENTS
+	cv_bridge
+	image_transport
+	roscoe
+	sensor_msgs
+	std_msgs
+)
+*** add this ***
+find_package (openCV REQUIRED)
+
+*** to this original line: ***
+include_directories(
+	${catkin_INCLUDE_DIRS}
+)
+*** add also the line which will end up with **
+include_directories(
+	${OpenCV_INCLUDE_DIRS}
+	${catkin_INCLUDE_DIRS}
+)
+
+*** uncomment the following line ***
+add_executable(opencv_tutorial_node src/opencv_tutorial_node.cpp)
+(in the general case it will be the name of our cpp/py file)
+
+*** uncomment the following lines and add one line: ***
+target_link_libraries(opencv_tutorial_node
+	${OpenCV_LIBRARIES}
+	${catkin_LIBRARIES}
+)
+
+CAMERA NODE SETUP
+1. In one terminal we run the launch file of the intel camera we are using
+2. In other terminal we type:
+>> rosun rqt_image_view
+
+
+if our camera is not smooth enough we need to lower the resolution as specified in the launch file. min 5:50 in https://www.youtube.com/watch?v=We6CQHhhOFo
+
+
+
+
+
+
