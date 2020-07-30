@@ -1,0 +1,7 @@
+<launch>
+	<node pkg="detection_pkg" name="drone_dji_node" type="drone_dji_control.py" output="screen"/>
+	
+
+</launch>
+
+

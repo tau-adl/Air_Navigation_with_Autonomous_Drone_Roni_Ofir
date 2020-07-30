@@ -1,0 +1,6 @@
+<launch>
+	<node pkg="detection_pkg" name="projector_node" type="projector_ros.py" output="screen">
+	</node>
+</launch>
+
+
